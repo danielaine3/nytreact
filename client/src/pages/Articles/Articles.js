@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
-import Jumbotron from "../../components/Jumbotron";
 import DeleteBtn from "../../components/DeleteBtn";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
@@ -8,12 +7,12 @@ import { Input, FormBtn } from "../../components/Form";
 import "./Articles.css";
 
 class Articles extends Component {
-  // Initialize this.state.books as an empty array
+  // Initialize this.state.articles as an empty array
   state = {
     articles: []
   };
 
-  // Add code here to get all books from the database and save them to this.state.books
+  // Add code here to get all articles from the database and save them to this.state.articles
 
   componentDidMount() {
     this.loadArticles();
@@ -28,7 +27,7 @@ class Articles extends Component {
 
   render() {
     return (
-      <Container fluid>
+      <Container>
         <Row>
           <h2>Search</h2>
           <form>
@@ -72,7 +71,6 @@ class Articles extends Component {
             <h3>No Results to Display</h3>
           )}
         </Row>
-
       </Container>
     );
   }
