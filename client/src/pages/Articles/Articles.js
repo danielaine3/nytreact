@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
 import DeleteBtn from "../../components/DeleteBtn";
+import SaveBtn from "../../components/SaveBtn";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
@@ -46,7 +47,6 @@ class Articles extends Component {
                       {article.title} by {article.date}
                     </strong>
                   </a>
-                  <DeleteBtn />
                 </ListItem>
               ))}
             </List>
@@ -63,6 +63,7 @@ class Articles extends Component {
                       {article.title} by {article.date}
                     </strong>
                   </a>
+                  <SaveBtn />
                   <DeleteBtn />
                 </ListItem>
               ))}

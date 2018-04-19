@@ -11,7 +11,7 @@ const Nav = () => (
           <span className="icon-bar" />
         </button>
         <h1><a href="/" className="navbar-brand">New York Times Article Scrubber</a></h1>
-        <h2> Search for and annotare articles of interest!</h2>
+        <h2> Search for and annotate articles of interest!</h2>
       </div>
     </div>
   </nav>
