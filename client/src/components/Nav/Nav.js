@@ -1,4 +1,5 @@
 import React from "react";
+import "./Nav.css";
 
 const Nav = () => (
   <nav className="navbar navbar-inverse navbar-top">
@@ -9,7 +10,8 @@ const Nav = () => (
           <span className="icon-bar" /> <span className="icon-bar" />
           <span className="icon-bar" />
         </button>
-        <a href="/" className="navbar-brand">NYT REACT APP</a>
+        <h1><a href="/" className="navbar-brand">New York Times Article Scrubber</a></h1>
+        <h2> Search for and annotare articles of interest!</h2>
       </div>
     </div>
   </nav>

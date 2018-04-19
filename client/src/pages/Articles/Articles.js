@@ -4,7 +4,8 @@ import Jumbotron from "../../components/Jumbotron";
 import DeleteBtn from "../../components/DeleteBtn";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
-import { Input, TextArea, FormBtn } from "../../components/Form";
+import { Input, FormBtn } from "../../components/Form";
+import "./Articles.css";
 
 class Articles extends Component {
   // Initialize this.state.books as an empty array
@@ -29,39 +30,49 @@ class Articles extends Component {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
-            <Jumbotron>
-              <h1>What Articles Should I Read?</h1>
-            </Jumbotron>
-            <form>
-              <Input name="title" placeholder="Title (required)" />
-              <Input name="date" placeholder="Date (required)" />
-              <Input name="url" placeholder="URL" />
-              <FormBtn>Submit Article</FormBtn>
-            </form>
-          </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Articles On My List</h1>
-            </Jumbotron>
-            {this.state.articles.length ? (
-              <List>
-                {this.state.articles.map(article => (
-                  <ListItem key={article._id}>
-                    <a href={"/articles/" + article._id}>
-                      <strong>
-                        {article.title} by {article.date}
-                      </strong>
-                    </a>
-                    <DeleteBtn />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
+          <h2>Search</h2>
+          <form>
+            <Input name="title" placeholder="Topic (required)" />
+            <Input name="start" placeholder="Start Date (required)" />
+            <Input name="end" placeholder="End Date" />
+            <FormBtn>Submit Article</FormBtn>
+          </form>
+          <h2>Results</h2>
+          {this.state.articles.length ? (
+            <List>
+              {this.state.articles.map(article => (
+                <ListItem key={article._id}>
+                  <a href={"/articles/" + article._id}>
+                    <strong>
+                      {article.title} by {article.date}
+                    </strong>
+                  </a>
+                  <DeleteBtn />
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <h3>No Results to Display</h3>
+          )}
+          <h2>Saved Articles</h2>
+          {this.state.articles.length ? (
+            <List>
+              {this.state.articles.map(article => (
+                <ListItem key={article._id}>
+                  <a href={"/articles/" + article._id}>
+                    <strong>
+                      {article.title} by {article.date}
+                    </strong>
+                  </a>
+                  <DeleteBtn />
+                </ListItem>
+              ))}
+            </List>
+          ) : (
+            <h3>No Results to Display</h3>
+          )}
         </Row>
+
       </Container>
     );
   }
