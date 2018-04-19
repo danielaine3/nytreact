@@ -1,6 +1,10 @@
 import axios from "axios";
 
 export default {
+    // Gets all articles
+  getArticles: function() {
+    return axios.get("/api/articles");
+  },
   // Gets the article with the given id
   getArticle: function(id) {
     return axios.get("/api/articles/" + id);
@@ -14,7 +18,7 @@ export default {
     return axios.post("/api/articles", articleData);
   },
   // Gets all articles
-  getArticles: function() {
-    return axios.get("*");
-  }
+  // getArticles: function() {
+  //   return axios.get("*");
+  // }
 };
