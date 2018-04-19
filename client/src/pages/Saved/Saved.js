@@ -8,15 +8,19 @@ import "./Saved.css";
 
 class Saved extends Component {
 	state= {
-		article: {}
+		articles: {}
 	};
 
-	// Component.DidMount() {
-	// 	API.getArticle(this.props.match.params.id)
-	// 	.then(res=>this.setState({ article: res.data }))
-	// 	.catch(err => console.log(err));
-	// 	API.getSaved()?????????????????
-	// }
+	ComponentDidMount() {
+    this.loadArticles();
+	}
+
+  loadArticles = () => {
+    API.getArticles()
+      .then(res => this.setState({ articles: res.data })
+        )
+      .catch(err => console.log('Error: ', err));
+  };
 
   render() {
     return (
@@ -29,8 +33,10 @@ class Saved extends Component {
                 <ListItem key={article._id}>
                   <a href={"/articles/" + article._id}>
                     <strong>
-                      {article.title} by {article.date}
+                      {article.title} {article.date}
                     </strong>
+                    <p>{article.date}</p>
+                    <p>{article.URL}</p>
                   </a>
                   <DeleteBtn />
                 </ListItem>

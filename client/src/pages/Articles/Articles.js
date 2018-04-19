@@ -17,7 +17,6 @@ class Articles extends Component {
   };
 
   // Add code here to get all articles from the database and save them to this.state.articles
-
   componentDidMount() {
     this.loadArticles();
   };
@@ -84,8 +83,10 @@ handleSave = event => {
                 <ListItem key={article._id}>
                   <a href={"/articles/" + article._id}>
                     <strong>
-                      {article.title} by {article.date}
+                      {article.title}
                     </strong>
+                    <p>{article.date}</p>
+                    <p>{article.URL}</p>
                   </a>
                   <SaveBtn />
                 </ListItem>
