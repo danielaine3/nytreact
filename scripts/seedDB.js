@@ -6,16 +6,16 @@ mongoose.Promise = global.Promise;
 
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/nytreact");
 
-const bookSeed = [
+const articleSeed = [
   {
     title: "The Dead Zone",
     date: new Date(Date.now()),
-    URL: "Stephen King"
+    URL: "www.msn.com"
   },
   {
     title: "Lord of the Flies",
     date: new Date(Date.now()),
-    URL: "William Golding"
+    URL: "www.msn.com"
   }
 ];
 

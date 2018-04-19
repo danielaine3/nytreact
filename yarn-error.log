@@ -15,7 +15,7 @@ Platform:
 
 npm manifest: 
   {
-    "name": "mern",
+    "name": "nytreact",
     "version": "1.0.0",
     "description": "",
     "main": "server.js",
@@ -2266,7 +2266,7 @@ Trace:
   Exit code: 1
   Command: sh
   Arguments: -c node scripts/seedDB.js
-  Directory: /Users/danicarter/devbootcamp/classassignments/week20/Day2/Books
+  Directory: /Users/danicarter/devbootcamp/Homework/nytreact
   Output:
   
       at ProcessTermError.MessageError (/usr/local/lib/node_modules/yarn/lib/cli.js:186:110)
