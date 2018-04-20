@@ -1,5 +1,11 @@
 import axios from "axios";
 
+const number = 10;
+const authKey = "b516c8195bff4efa868563ed00e919e3";
+const queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
+  authKey + "&q=";
+
+
 export default {
     // Gets all articles
   getArticles: function() {
@@ -17,7 +23,7 @@ export default {
   saveArticle: function(articleData) {
     return axios.post("/api/articles", articleData);
   },
-  // Gets all articles
+  //Returns if no match
   // getArticles: function() {
   //   return axios.get("*");
   // }
