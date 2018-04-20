@@ -5,34 +5,36 @@ import SaveBtn from "../../components/SaveBtn";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, FormBtn } from "../../components/Form";
+import Results from "../../components/Results";
 import "./Articles.css";
 
 class Articles extends Component {
   // Initialize this.state.articles as an empty array
   state = {
-    articles: [], 
-    title: "",
-    URL: "",
-    Date: ""
+    topic:"",
+    startYear:"",
+    endYear:"",
+    queryURL:"",
+    result: [],
   };
 
   // Add code here to get all articles from the database and save them to this.state.articles
   componentDidMount() {
-    this.loadArticles();
+    this.search("");
   };
 
-  loadArticles = () => {
-    API.getArticles()
-      .then(res => this.setState({ articles: res.data, title: "", URL: "", Date: "" })
+  search = query => {
+    API.search(query)
+      .then(res => this.setState({ API: res.data.response.docs })
         )
       . catch(err => console.log('Error: ', err));
   };
 
-deleteArticle = id => {
-  API.deleteArticle(id)
-  .then(res =>this.loadArticles())
-  .catch(err => console.log(err));
-};
+// deleteArticle = id => {
+//   API.deleteArticle(id)
+//   .then(res =>this.loadArticles())
+//   .catch(err => console.log(err));
+// };
 
 handleInputChange = event => {
   const { name, value } = event.target;
@@ -43,12 +45,27 @@ handleInputChange = event => {
 
 handleFormSubmit = event => {
   event.preventDefault();
-  if (this.state.title) {
-    //AJAX CALL??????????
-    //====================
-    //====================
-    //====================
+  this.setState({
+    topic:"", 
+    startYear:"",
+    endYear:"",
+
+  });
+
+  //If user provides startYear- include in queryURL
+  if (parseInt(this.state.startYear)) {
+    this.setState({
+      searchURL:`${this.state.queryURL}&begin_date=${this.state.startYear}0101`
+    });
   }
+
+  //If user provides endYear-- include in queryURL
+  if(parseInt(this.state.endYear)) {
+    this.setState({
+      searchURL:`${this.state.queryURL}&end_date=${this.state.endYear}0101`
+    });
+  }
+  this.search(this.state.searchURL);
 };
 
 handleSave = event => {
@@ -71,30 +88,22 @@ handleSave = event => {
         <Row>
           <h2>Search</h2>
           <form>
-            <Input name="title" placeholder="Topic (required)" />
-            <Input name="start" placeholder="Start Date (required)" />
-            <Input name="end" placeholder="End Date" />
-            <FormBtn>Search</FormBtn>
+            <Input id="topic" name="topic" placeholder="Topic (required)" />
+            <Input id ="start-date" name="start" placeholder="Start Date (required)" />
+            <Input id="end-date" name="end" placeholder="End Date" />
+            <FormBtn id="search" onClick={ this.handleFormSubmit }>Search</FormBtn>
           </form>
           <h2>Results</h2>
-          {this.state.articles.length ? (
-            <List>
-              {this.state.articles.map(article => (
-                <ListItem key={article._id}>
-                  <a href={"/articles/" + article._id}>
-                    <strong>
-                      {article.title}
-                    </strong>
-                    <p>{article.date}</p>
-                    <p>{article.URL}</p>
-                  </a>
-                  <SaveBtn />
-                </ListItem>
-              ))}
-            </List>
-          ) : (
-            <h3>No Results to Display</h3>
-          )}
+          {this.state.result.map(result => {
+            return (
+              <Results
+                key={result.web_url}
+                title={result.headline.main}
+                href={result.web_url}
+              />
+            )
+          }) 
+        }
         </Row>
       </Container>
     );
