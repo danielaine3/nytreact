@@ -63,31 +63,31 @@ export default {
   search(query) {
     return axios.get(queryURL + query)
   },
-};
 
-//   // Gets all articles
-//   getArticles: function() {
-//     return axios.get("/api/articles");
-//   },
-//   // Gets the article with the given id
-//   getArticle: function(id) {
-//     return axios.get("/api/articles/" + id);
-//   },
-//   // Deletes the article with the given id
-//   deleteArticle: function(id) {
-//     return axios.delete("/api/articles/" + id);
-//   },
-//   // Saves a articleto the database
-//   saveArticle: function(articleData) {
-//     return axios.post("/api/articles", articleData);
-//   },
+
+  // Gets all articles
+  getArticles: function() {
+    return axios.get("/api/articles");
+  },
+  // Gets the article with the given id
+  getArticle: function(id) {
+    return axios.get("/api/articles/" + id);
+  },
+  // Deletes the article with the given id
+  deleteArticle: function(id) {
+    return axios.delete("/api/articles/" + id);
+  },
+  // Saves a articleto the database
+  saveArticle: function(articleData) {
+    return axios.post("/api/articles", articleData);
+  },
 
 
 //   //Returns if no match
 //   // getArticles: function() {
 //   //   return axios.get("*");
 //   // }
-// };
+};
 
 
 
