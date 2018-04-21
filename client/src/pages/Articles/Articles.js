@@ -14,19 +14,18 @@ class Articles extends Component {
     topic:"",
     startYear:"",
     endYear:"",
-    queryURL:"",
+    qURL:"",
     result: [],
   };
 
-  // Add code here to get all articles from the database and save them to this.state.articles
-  componentDidMount() {
-    this.search("");
-  };
+  // // Add code here to get all articles from the database and save them to this.state.articles
+  // componentDidMount() {
+  //   this.search("");
+  // };
 
   search = query => {
     API.search(query)
-      .then(res => this.setState({ API: res.data.response.docs })
-        )
+      .then(res => this.setState({ result: res.data.response.docs }))
       . catch(err => console.log('Error: ', err));
   };
 
@@ -36,50 +35,44 @@ class Articles extends Component {
 //   .catch(err => console.log(err));
 // };
 
-handleInputChange = event => {
-  const { name, value } = event.target;
-  this.setState({
-    [name]:value
-  });
-};
-
-handleFormSubmit = event => {
-  event.preventDefault();
-  this.setState({
-    topic:"", 
-    startYear:"",
-    endYear:"",
-
-  });
-
-  //If user provides startYear- include in queryURL
-  if (parseInt(this.state.startYear)) {
+  handleInputChange = event => {
+    const {name, value } = event.target;
     this.setState({
-      searchURL:`${this.state.queryURL}&begin_date=${this.state.startYear}0101`
+      [name]: value
+    }, () =>{
+      this.setState(
+        {qURL:
+          (this.state.topic)+
+          (this.state.startYear ? `&begin_date=${this.state.startYear}0101` : "")+
+          (this.state.endYear ? `&end_date=${this.state.endYear}0101` : "")
+        }
+      )
     });
-  }
+  };
 
-  //If user provides endYear-- include in queryURL
-  if(parseInt(this.state.endYear)) {
-    this.setState({
-      searchURL:`${this.state.queryURL}&end_date=${this.state.endYear}0101`
-    });
-  }
-  this.search(this.state.searchURL);
-};
+  handleFormSubmit = event => {
+    event.preventDefault();
 
-handleSave = event => {
-  // $(".save").on("click", function() {
-  //   event.preventDefault();
-  //   API.saveArticle({
-  //     title:this.state.title, 
-  //     URL: this.state.URL, 
-  //     date: this.state.date
-  //   })
-  //   .then(res => this.loadArticles())
-  //   .catch(err=>console.log(err));
-  // })
-};
+    if (!this.state.topic) {
+      alert("Please enter a topic to search.");
+    } else {
+      console.log(this.state.qURL)
+      this.search(this.state.qURL);
+    }
+  };
+
+  handleSave = event => {
+    // $(".save").on("click", function() {
+    //   event.preventDefault();
+    //   API.saveArticle({
+    //     title:this.state.title, 
+    //     URL: this.state.URL, 
+    //     date: this.state.date
+    //   })
+    //   .then(res => this.loadArticles())
+    //   .catch(err=>console.log(err));
+    // })
+  };
 
 
   render() {
@@ -88,19 +81,19 @@ handleSave = event => {
         <Row>
           <h2>Search</h2>
           <form>
-            <Input id="topic" name="topic" placeholder="Topic (required)" />
-            <Input id ="start-date" name="start" placeholder="Start Date (required)" />
-            <Input id="end-date" name="end" placeholder="End Date" />
-            <FormBtn id="search" onClick={ this.handleFormSubmit }>Search</FormBtn>
+            <Input value={this.state.topic} onChange={this.handleInputChange} id="topic" name="topic" placeholder="Topic (required)" />
+            <Input value={this.state.startYear} onChange={this.handleInputChange} id ="start-date" name="start" placeholder="Start Date" />
+            <Input value={this.state.endYear} onChange={this.handleInputChange} id="end-date" name="end" placeholder="End Date" />
+            <FormBtn id="search" onClick= { this.handleFormSubmit }>Search</FormBtn>
           </form>
           <h2>Results</h2>
           {this.state.result.map(result => {
             return (
-              <Results
-                key={result.web_url}
-                title={result.headline.main}
-                href={result.web_url}
-              />
+              <div>
+                <strong key={result.web_url} href={result.web_url}>{result.headline.main}</strong>
+                <p>{result.web_url}</p>
+                <SaveBtn onClick= { this.handleSave }>Save</SaveBtn>
+              </div>
             )
           }) 
         }
@@ -109,5 +102,4 @@ handleSave = event => {
     );
   }
 }
-
 export default Articles;

@@ -1,7 +1,6 @@
 import React from "react";
 import "./Results.css";
 
-
 const Results = props => {
 	<div class="results">
 		<h2>{ props.title }</h2>
